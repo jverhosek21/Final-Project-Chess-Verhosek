@@ -45,7 +45,6 @@ abstract class Piece extends Critter
 		{
 			moveTo(move);
 			Board.check(bWhite);
-			Board.checkmate(bWhite);
 		}
 		
 		else

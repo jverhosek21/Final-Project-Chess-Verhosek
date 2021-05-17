@@ -15,9 +15,9 @@ public class Board
 
 	private static ArrayList<Piece> whitePieces;
 	private static ArrayList<Piece> blackPieces;
+	private static ActorWorld world;
 	private Color player1;
 	private Color player2;
-	private Prompts prompts = new Prompts();
 	
 	/**
 	 * Sets up board with traditional colors
@@ -44,7 +44,7 @@ public class Board
      */
     public void setBoard()
     {
-    	ActorWorld world = new ActorWorld();
+    	world = new ActorWorld();
     	
     	boolean bWhite = true;
     	
@@ -127,123 +127,62 @@ public class Board
      */
     public static void check(boolean bWhite)
     {
-    	ArrayList<Location> check = new ArrayList<Location>();
     	
-    	if(bWhite)
+    	try 
     	{
-    		Location kingLoc = blackPieces.get(blackPieces.size() - 1).getLocation();
-    		
-    		for(int iIndex = 0; iIndex < whitePieces.size(); iIndex++)
-    		{
-    			check.addAll(whitePieces.get(iIndex).listValidMoves());
-    		}
-    		
-    		for(int iCounter = 0; iCounter < check.size(); iCounter++)
-    		{
-    			if(check.get(iCounter).getRow() == kingLoc.getRow() && check.get(iCounter).getCol() == kingLoc.getCol())
-    			{
-    				//add buttons here
-    				Prompts prompts = new Prompts();
-    				prompts.prepareGUI();
-    				prompts.showDialogDemo(bWhite);
-    				//System.out.println("Player 2 King is in Check");
-    				iCounter = check.size();
-    			}
-    		}
-    		
-    	}
+    		ArrayList<Location> check = new ArrayList<Location>();
     	
-    	else
-    	{
-    		Location kingLoc = whitePieces.get(whitePieces.size() - 1).getLocation();
-    		
-    		for(int iIndex = 0; iIndex < blackPieces.size(); iIndex++)
+    		if(bWhite)
     		{
-    			check.addAll(blackPieces.get(iIndex).listValidMoves());
-    		}
+    			Location kingLoc = blackPieces.get(blackPieces.size() - 1).getLocation();
     		
-    		for(int iCounter = 0; iCounter < check.size(); iCounter++)
-    		{
-    			if(check.get(iCounter).getRow() == kingLoc.getRow() && check.get(iCounter).getCol() == kingLoc.getCol())
+    			for(int iIndex = 0; iIndex < whitePieces.size(); iIndex++)
     			{
-    				Prompts prompts = new Prompts();
-    				prompts.prepareGUI();
-    				prompts.showDialogDemo(bWhite);
-    				//System.out.println("Player 1 King is in Check");
-    				iCounter = check.size();
+    				check.addAll(whitePieces.get(iIndex).listValidMoves());
     			}
-    		}
-    	}
-    }
-    
-    //updated, but still not checking for instance where the checkmate can be blocked by another piece (still trying to figure this out)
-    /**
-     * Checks if the newly moved piece has resulted in a checkmate of the opposing king
-     * @param bWhite represents the color of the piece that was moved
-     */
-    public static void checkmate(boolean bWhite)
-    {
-    	ArrayList<Location> posMoves = new ArrayList<Location>();
-    	ArrayList<Location> kingLocs = new ArrayList<Location>();
-    	
-    	if(bWhite)
-    	{
-    		//gets location of the black king piece
-    		kingLocs.add(blackPieces.get(blackPieces.size() - 1).getLocation());
-    		//gets all possible move locations of the king
-    		kingLocs.addAll(blackPieces.get(blackPieces.size() -1).getMoveLocations());
     		
-    		//gets all valid moves of the white pieces
-    		for(int iIndex = 0; iIndex < whitePieces.size(); iIndex++)
-    		{
-    			posMoves.addAll(whitePieces.get(iIndex).listValidMoves());
-    		}
-    		
-    		for(int iCounter = 0; iCounter < posMoves.size(); iCounter++)
-    		{
-    			for(int iIndex = 0; iIndex < kingLocs.size(); iIndex++)
+    			for(int iCounter = 0; iCounter < check.size(); iCounter++)
     			{
-    				if(posMoves.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && posMoves.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
-        			{
-        				kingLocs.remove(iIndex);
-        			}
-    			}
-    		}
-    		
-    		if(kingLocs.size() == 0)
-    		{
-    			System.out.println("CHECKMATE: PLAYER 1 WINS");
-    		}
+    				if(check.get(iCounter).getRow() == kingLoc.getRow() && check.get(iCounter).getCol() == kingLoc.getCol())
+    				{
+    					world.setMessage("Player 2 King is in Check");
+    					iCounter = check.size();
+    				}
     			
-    	}
-    	
-    	else
-    	{
-    		kingLocs.add(whitePieces.get(whitePieces.size() - 1).getLocation());
-    		kingLocs.addAll(whitePieces.get(whitePieces.size() -1).getMoveLocations());
-    		
-    		for(int iIndex = 0; iIndex < blackPieces.size(); iIndex++)
-    		{
-    			posMoves.addAll(blackPieces.get(iIndex).listValidMoves());
-    		}
-    		
-    		for(int iCounter = 0; iCounter < posMoves.size(); iCounter++)
-    		{
-    			for(int iIndex = 0; iIndex < kingLocs.size(); iIndex++)
-    			{
-    				if(posMoves.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && posMoves.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
-        			{
-        				kingLocs.remove(iIndex);
-        			}
+    				else
+    				{
+    					world.setMessage("Player 2's turn");
+    				}
     			}
     		}
-    		
-    		if(kingLocs.size() == 0)
+    	
+    		else
     		{
-    			System.out.println("CHECKMATE: PLAYER 2 WINS");
-    		}
+    			Location kingLoc = whitePieces.get(whitePieces.size() - 1).getLocation();
+    			
+    			for(int iIndex = 0; iIndex < blackPieces.size(); iIndex++)
+    			{
+    				check.addAll(blackPieces.get(iIndex).listValidMoves());
+    			}
     		
+    			for(int iCounter = 0; iCounter < check.size(); iCounter++)
+    			{
+    				if(check.get(iCounter).getRow() == kingLoc.getRow() && check.get(iCounter).getCol() == kingLoc.getCol())
+    				{
+    					world.setMessage("Player 1 King is in Check");
+    					iCounter = check.size();
+    				}	
+    			
+    				else
+    				{
+    					world.setMessage("Player 1's turn");
+    				}
+    			}
+    		}
+    	}
+    	catch(NullPointerException e)
+    	{
+    		world.setMessage("Checkmate! You Win!");
     	}
     }
-    
 }
