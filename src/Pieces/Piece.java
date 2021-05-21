@@ -27,6 +27,10 @@ abstract class Piece extends Critter
 		setColor(cPlayer);
 	}
 	
+	/**
+	 * returns boolean to indicate side
+	 * @return true if player 1 piece false if player 2 piece
+	 */
 	public boolean getSide()
 	{
 		return bWhite;
@@ -45,6 +49,7 @@ abstract class Piece extends Critter
 		{
 			moveTo(move);
 			Board.check(bWhite);
+			Board.checkmate(bWhite);
 		}
 		
 		else

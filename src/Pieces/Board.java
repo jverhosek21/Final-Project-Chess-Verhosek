@@ -45,15 +45,18 @@ public class Board
     public void setBoard()
     {
     	world = new ActorWorld();
+    	whitePieces = new ArrayList<Piece>();
+    	
+    	world.setMessage("Player 1, select a piece and select move to begin.");
     	
     	boolean bWhite = true;
     	
     	for (int iCol = 0; iCol < 8; iCol++)
 		{
-			world.add(new Location (6, iCol), new Pawn(bWhite, player1));
+    		Pawn wPawn = new Pawn(bWhite, player1);
+			world.add(new Location (6, iCol), wPawn);
+			whitePieces.add(wPawn);
 		}
-    	
-    	whitePieces = new ArrayList<Piece>();
     	
     	Rook rook1 = new Rook(bWhite, player1);
     	Rook rook2 = new Rook(bWhite, player1);
@@ -85,12 +88,14 @@ public class Board
     	
     	bWhite = false;
     	
+    	blackPieces = new ArrayList<Piece>();
+    	
     	for (int iCol = 0; iCol < 8; iCol++)
     	{
-    		world.add(new Location (1, iCol), new Pawn(bWhite, player2));
+    		Pawn bPawn = new Pawn(bWhite, player2);
+    		world.add(new Location (1, iCol), bPawn);
+    		blackPieces.add(bPawn);
     	}
-    	
-    	blackPieces = new ArrayList<Piece>();
     	
     	Rook rook3 = new Rook(bWhite, player2);
     	Rook rook4 = new Rook(bWhite, player2);
@@ -182,7 +187,30 @@ public class Board
     	}
     	catch(NullPointerException e)
     	{
-    		world.setMessage("Checkmate! You Win!");
+    		
+    	}
+    }
+    
+    /**
+     * Checks if the opposite side's king has been taken, and if so calls check mate 
+     * @param bWhite color of the piece that just moved
+     */
+    public static void checkmate(boolean bWhite)
+    {
+    	if(bWhite)
+    	{	
+    		if(blackPieces.get(blackPieces.size() - 1).getLocation() == null)
+    		{
+    				world.setMessage("Checkmate! Player 1 Wins!");
+    		}
+    	}
+    	
+    	else
+    	{
+    		if(whitePieces.get(whitePieces.size() - 1).getLocation() == null)
+    		{
+    				world.setMessage("Checkmate! Player 2 Wins!");
+    		}
     	}
     }
 }

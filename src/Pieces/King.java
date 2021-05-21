@@ -9,9 +9,14 @@ import info.gridworld.grid.Location;
 
 public class King extends Piece
 {
+	
+	private final static int BOARDERSTART = 0;
+	private final static int BOARDEREND = 7;
+	
 	/**
 	 * Constructor
 	 * @param b calls the parent class constructor
+	 * @param c calls the parent class constructor
 	 */
 	public King(boolean b, Color c)
 	{
@@ -33,7 +38,8 @@ public class King extends Piece
 		
 		for(int iCounter = 0; iCounter < pieces.size(); iCounter++)
 		{
-			if((pieces.get(iCounter).getLocation().getCol() == 0) || (pieces.get(iCounter).getLocation().getRow() == 9) || (pieces.get(iCounter).getLocation().getCol() == 9) || (pieces.get(iCounter).getLocation().getRow() == 0) || (pieces.get(iCounter).getColor().equals(this.getColor())))//get the rocks out
+			//Makes sure that the king doesn't move off the board or take a piece of its own color
+			if((pieces.get(iCounter).getLocation().getCol() < BOARDERSTART) || (pieces.get(iCounter).getLocation().getRow() > BOARDEREND) || (pieces.get(iCounter).getLocation().getCol() > BOARDEREND) || (pieces.get(iCounter).getLocation().getRow() < BOARDERSTART) || (pieces.get(iCounter).getColor().equals(this.getColor())))
 			{
 				
 			}

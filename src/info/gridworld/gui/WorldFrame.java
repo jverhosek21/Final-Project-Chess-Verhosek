@@ -26,6 +26,7 @@ import info.gridworld.world.World;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
@@ -191,6 +192,7 @@ public class WorldFrame<T> extends JFrame
         messageArea.setEditable(false);
         messageArea.setFocusable(false);
         messageArea.setBackground(new Color(0xFAFAD2));
+        messageArea.setFont(new Font("Times New Roman", 1, 20));
         content.add(new JScrollPane(messageArea), BorderLayout.NORTH);
 
         pack();
@@ -202,7 +204,7 @@ public class WorldFrame<T> extends JFrame
     {
         String message = getWorld().getMessage();
         if (message == null)
-            message = resources.getString("message.default");
+            message = "Player 1, select a piece and select move to begin.";
         messageArea.setText(message);
         messageArea.repaint();
         display.repaint(); // for applet

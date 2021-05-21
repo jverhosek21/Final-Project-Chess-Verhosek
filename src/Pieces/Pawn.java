@@ -9,9 +9,14 @@ import info.gridworld.grid.Location;
 
 public class Pawn extends Piece
 {
+	
+	private final static int BOARDERSTART = 0;
+	private final static int BOARDEREND = 7;
+	
 	/**
 	 * Constructor
 	 * @param b calls the parent class constructor
+	 * @param c calls the parent class constructor
 	 */
 	public Pawn(boolean b, Color c)
 	{
@@ -45,7 +50,7 @@ public class Pawn extends Piece
 				//checks if there if there are any pieces that could be captured by the pawn
 				else if((pieces.get(iCounter).getLocation().getCol() == y + 1 || pieces.get(iCounter).getLocation().getCol() == y - 1) && pieces.get(iCounter).getLocation().getRow() == x - 1)
 				{
-					if((pieces.get(iCounter).getLocation().getCol() == 0) || (pieces.get(iCounter).getLocation().getRow() == 9) || (pieces.get(iCounter).getLocation().getCol() == 9) || (pieces.get(iCounter).getLocation().getRow() == 0) || (pieces.get(iCounter).getColor().equals(this.getColor())))
+					if((pieces.get(iCounter).getLocation().getCol() < BOARDERSTART) || (pieces.get(iCounter).getLocation().getRow() > BOARDEREND) || (pieces.get(iCounter).getLocation().getCol() > BOARDEREND) || (pieces.get(iCounter).getLocation().getRow() < BOARDERSTART) || (pieces.get(iCounter).getColor().equals(this.getColor())))
 					{
 						
 					}
@@ -79,7 +84,7 @@ public class Pawn extends Piece
 				//checks if there if there are any pieces that could be captured by the pawn
 				else if((pieces.get(iCounter).getLocation().getCol() == y + 1 || pieces.get(iCounter).getLocation().getCol() == y - 1) && pieces.get(iCounter).getLocation().getRow() == x + 1)
 				{
-					if((pieces.get(iCounter).getLocation().getCol() == 0) || (pieces.get(iCounter).getLocation().getRow() == 9) || (pieces.get(iCounter).getLocation().getCol() == 9) || (pieces.get(iCounter).getLocation().getRow() == 0) || (pieces.get(iCounter).getColor().equals(this.getColor())))
+					if((pieces.get(iCounter).getLocation().getCol() < BOARDERSTART) || (pieces.get(iCounter).getLocation().getRow() > BOARDEREND) || (pieces.get(iCounter).getLocation().getCol() > BOARDEREND) || (pieces.get(iCounter).getLocation().getRow() < BOARDERSTART) || (pieces.get(iCounter).getColor().equals(this.getColor())))
 					{
 						
 					}

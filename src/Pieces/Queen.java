@@ -10,7 +10,7 @@ public class Queen extends Piece
 {
 	
 	private final static int BOARDERSTART = 0;
-	private final static int BOARDEREND = 8;
+	private final static int BOARDEREND = 7;
 	
 	public static final int NORTH = 0;
 	/**
@@ -22,7 +22,7 @@ public class Queen extends Piece
 	 */
 	public static final int EAST = 90;
 	/**
-	 * The compass direction for southeast.
+	 * The compass direction for south east.
 	 */
 	public static final int SOUTHEAST = 135;
 	/**
@@ -46,6 +46,7 @@ public class Queen extends Piece
 	/**
 	 * Constructor
 	 * @param b calls the parent class constructor
+	 * @param c calls the parent class constructor
 	 */
 	public Queen(boolean b, Color c)
 	{
@@ -95,18 +96,21 @@ public class Queen extends Piece
 			newLoc = oldLoc.getAdjacentLocation(direction);
 			for(int iCounter = 0; iCounter < occupied.size(); iCounter++)
 			{
-				if(newLoc.equals(occupied.get(iCounter)) || newLoc.getRow() < BOARDERSTART || newLoc.getRow() >= BOARDEREND || newLoc.getCol() < BOARDERSTART || newLoc.getCol() >= BOARDEREND)
+				//Checks if the locations it is adding have gone off the board's boundaries or reached an occupied location, and if do stops
+				if(newLoc.equals(occupied.get(iCounter)) || newLoc.getRow() < BOARDERSTART || newLoc.getRow() > BOARDEREND || newLoc.getCol() < BOARDERSTART || newLoc.getCol() > BOARDEREND)
 				{
 					bPiece = true;
 					iCounter = occupied.size();
 				}
 			}
 			
+			// adds next location
 			if(!bPiece)
 			{
 				moves.add(newLoc);
 			}
 			
+			//checks if the there is a occupied location with an opposing piece next, and if so adds it
 			else
 			{
 				ArrayList<Actor> pieces = gr.getNeighbors(oldLoc);
