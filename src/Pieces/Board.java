@@ -127,14 +127,48 @@ public class Board
     }
     
     /**
+     * gets the array list of player 1's pieces
+     * @return array list
+     */
+    public static ArrayList<Piece> getWhitePieces()
+    {
+    	return whitePieces;
+    }
+    
+    /**
+     * gets the array list of player 2's pieces
+     * @return array list 
+     */
+    public static ArrayList<Piece> getBlackPieces()
+    {
+    	return blackPieces;
+    }
+    
+    /**
+     * sets the array list for player 1's pieces
+     * @param array list
+     */
+    public static void setWhitePieces(ArrayList<Piece> pieceList)
+    {
+    	whitePieces = pieceList;
+    }
+    
+    /**
+     * sets the array list for player 2's pieces
+     * @return array list
+     */
+    public static void setBlackPieces(ArrayList<Piece> pieceList)
+    {
+    	blackPieces = pieceList;
+    }
+    
+    /**
      * Check if the opposing sides king is in check
      * @param bWhite signifies which side made the most current move
      */
     public static void check(boolean bWhite)
     {
     	
-    	try 
-    	{
     		ArrayList<Location> check = new ArrayList<Location>();
     	
     		if(bWhite)
@@ -185,11 +219,6 @@ public class Board
     			}
     		}
     	}
-    	catch(NullPointerException e)
-    	{
-    		
-    	}
-    }
     
     /**
      * Checks if the opposite side's king has been taken, and if so calls check mate 
@@ -198,19 +227,13 @@ public class Board
     public static void checkmate(boolean bWhite)
     {
     	if(bWhite)
-    	{	
-    		if(blackPieces.get(blackPieces.size() - 1).getLocation() == null)
-    		{
-    				world.setMessage("Checkmate! Player 1 Wins!");
-    		}
+    	{		
+    		world.setMessage("Checkmate! Player 1 Wins!");    		
     	}
     	
     	else
     	{
-    		if(whitePieces.get(whitePieces.size() - 1).getLocation() == null)
-    		{
-    				world.setMessage("Checkmate! Player 2 Wins!");
-    		}
+    		world.setMessage("Checkmate! Player 2 Wins!");
     	}
     }
 }

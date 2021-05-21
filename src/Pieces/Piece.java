@@ -37,19 +37,79 @@ abstract class Piece extends Critter
 	}
 	
 	/**
-	 * Checks if the location is valid for a piece and is so moves 
+	 * Checks if the location is valid for a piece and is so moves; also calls check and check mate methods
 	 * @param y the y coordinate
 	 * @param x the x coordinate 
 	 */
 	public void move(int x, int y)
 	{
+		Grid<Actor> gr = getGrid();
 		Location move = new Location ((x), (y)); 
+		ArrayList<Location> occupied = gr.getOccupiedLocations();
+		boolean bCheckmate = false;
 		
+		//removes any pieces that have been captured from the array list
 		if(canMove(move))
 		{
+			if(bWhite)
+			{
+				ArrayList<Piece> pieces = Board.getBlackPieces();
+				for(int iCounter = 0; iCounter < occupied.size(); iCounter++)
+				{
+					if(occupied.get(iCounter).equals(move))
+					{
+						for(int iCount = 0; iCount < pieces.size(); iCount++)
+						{
+							if(pieces.get(iCount).getLocation().equals(occupied.get(iCounter)))
+							{
+								if(iCount == (pieces.size() - 1))
+								{
+									bCheckmate = true;
+								}
+								pieces.remove(iCount);
+							}
+						}
+					}
+					
+				}
+				Board.setBlackPieces(pieces);
+			}
+			
+			else
+			{
+				ArrayList<Piece> pieces = Board.getWhitePieces();
+				for(int iCounter = 0; iCounter < occupied.size(); iCounter++)
+				{
+					if(occupied.get(iCounter).equals(move))
+					{
+						for(int iCount = 0; iCount < pieces.size(); iCount++)
+						{
+							if(pieces.get(iCount).getLocation().equals(occupied.get(iCounter)))
+							{
+								if(iCount == (pieces.size() - 1))
+								{
+									bCheckmate = true;
+								}
+								pieces.remove(iCount);
+							}
+						}
+					}
+					
+				}
+				Board.setWhitePieces(pieces);
+			}
+			
 			moveTo(move);
-			Board.check(bWhite);
-			Board.checkmate(bWhite);
+			
+			if(bCheckmate)
+			{
+				Board.checkmate(bWhite);
+			}
+			
+			else
+			{
+				Board.check(bWhite);
+			}
 		}
 		
 		else
@@ -76,6 +136,8 @@ abstract class Piece extends Critter
 		{
 			return false;
 		}
+		
+		
 		
 		ArrayList<Location> moves = listValidMoves();
 		for(int iCounter = 0; iCounter < moves.size(); iCounter++)
