@@ -1,13 +1,11 @@
 package Pieces;
 import java.awt.Color;
 import java.util.Scanner;
-import Pieces.Board;
 
 public class Game 
 {
 	
 	private static boolean bActive = true;
-	private static boolean bGame = true;
 	private static  Color[] colors = new Color[]{Color.BLACK, Color.BLUE, Color.CYAN, Color.WHITE, Color.GRAY, Color.GREEN, Color.RED, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.YELLOW };
 	private static String[] colorNames = new String[] {"Black", "Blue", "Cyan", "White", "Gray", "Green", "Red", "Magenta", "Orange", "Pink", "Yellow"};
 	

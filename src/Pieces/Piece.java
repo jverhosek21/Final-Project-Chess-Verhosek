@@ -1,9 +1,7 @@
 package Pieces;
 import java.awt.Color;
 import java.util.ArrayList;
-
 import info.gridworld.actor.Actor;
-import info.gridworld.actor.Bug;
 import info.gridworld.actor.Critter;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
@@ -12,6 +10,8 @@ abstract class Piece extends Critter
 {
 	protected abstract ArrayList<Location> listValidMoves();
 	
+	private static boolean player1Turn;
+	private static boolean bCheckmate;
 	private boolean bWhite;
 	private Color cPlayer;
 	
@@ -21,6 +21,8 @@ abstract class Piece extends Critter
 	 */
 	public Piece(boolean player1 , Color pPlayer)
 	{
+		player1Turn = true;
+		bCheckmate = false;
 		bWhite = player1;
 		cPlayer = pPlayer;
 		
@@ -46,7 +48,6 @@ abstract class Piece extends Critter
 		Grid<Actor> gr = getGrid();
 		Location move = new Location ((x), (y)); 
 		ArrayList<Location> occupied = gr.getOccupiedLocations();
-		boolean bCheckmate = false;
 		
 		//removes any pieces that have been captured from the array list
 		if(canMove(move))
@@ -73,6 +74,7 @@ abstract class Piece extends Critter
 					
 				}
 				Board.setBlackPieces(pieces);
+				player1Turn = false;
 			}
 			
 			else
@@ -97,6 +99,7 @@ abstract class Piece extends Critter
 					
 				}
 				Board.setWhitePieces(pieces);
+				player1Turn = true;
 			}
 			
 			moveTo(move);
@@ -108,7 +111,7 @@ abstract class Piece extends Critter
 			
 			else
 			{
-				Board.check(bWhite);
+				Board.check(bWhite);	
 			}
 		}
 		
@@ -127,22 +130,15 @@ abstract class Piece extends Critter
 	public boolean canMove(Location space)
 	{
 		Grid<Actor> gr = getGrid();
-		if (gr == null)
+		if (gr == null || !gr.isValid(space) || bCheckmate)
 		{
 			return false;
 		}
-		
-		if(!gr.isValid(space))
-		{
-			return false;
-		}
-		
-		
 		
 		ArrayList<Location> moves = listValidMoves();
 		for(int iCounter = 0; iCounter < moves.size(); iCounter++)
 		{
-			if (moves.get(iCounter).equals(space))
+			if (moves.get(iCounter).equals(space) && bWhite == player1Turn)
 			{
 				return true;
 			}

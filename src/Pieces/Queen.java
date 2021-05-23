@@ -2,7 +2,6 @@ package Pieces;
 import java.awt.Color;
 import java.util.ArrayList;
 import info.gridworld.actor.Actor;
-import info.gridworld.actor.Bug;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 
@@ -30,7 +29,7 @@ public class Queen extends Piece
 	 */
 	public static final int SOUTH = 180;
 	/**
-	 * The compass direction for southwest.
+	 * The compass direction for south west.
 	 */
 	public static final int SOUTHWEST = 225;
 	/**

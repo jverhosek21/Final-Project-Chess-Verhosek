@@ -1,14 +1,8 @@
 package Pieces;
 import info.gridworld.actor.ActorWorld;
-import info.gridworld.actor.Rock;
 import info.gridworld.grid.Location;
-import info.gridworld.world.World;
-import info.gridworld.actor.Bug;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Scanner;
-import javax.swing.*;
-import java.awt.event.*;
 
 public class Board
 {
@@ -40,15 +34,16 @@ public class Board
 	}
     
     /**
-     * Sets board up with boarder and pieces in the correct spot
+     * Sets board up with boarder and pieces in starting positions
      */
     public void setBoard()
     {
     	world = new ActorWorld();
     	whitePieces = new ArrayList<Piece>();
     	
-    	world.setMessage("Player 1, select a piece and select move to begin.");
+    	world.setMessage("Player 1, select a piece and move to begin.");
     	
+    	//all white/player 1's pieces
     	boolean bWhite = true;
     	
     	for (int iCol = 0; iCol < 8; iCol++)
@@ -85,7 +80,7 @@ public class Board
     	world.add(new Location (7, 3), queen);
     	world.add(new Location (7, 4), king);
     	
-    	
+    	//all black/player 2's pieces
     	bWhite = false;
     	
     	blackPieces = new ArrayList<Piece>();
@@ -163,7 +158,7 @@ public class Board
     }
     
     /**
-     * Check if the opposing sides king is in check
+     * Check if the opposing sides king is in check by comparing it's location with all possible locations of the current player's pieces
      * @param bWhite signifies which side made the most current move
      */
     public static void check(boolean bWhite)
@@ -221,7 +216,7 @@ public class Board
     	}
     
     /**
-     * Checks if the opposite side's king has been taken, and if so calls check mate 
+     * Sets the message to indicate the winner when check mate has occurred
      * @param bWhite color of the piece that just moved
      */
     public static void checkmate(boolean bWhite)

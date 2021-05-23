@@ -204,7 +204,7 @@ public class WorldFrame<T> extends JFrame
     {
         String message = getWorld().getMessage();
         if (message == null)
-            message = "Player 1, select a piece and select move to begin.";
+            message = "Player 1, select a piece and move to begin.";
         messageArea.setText(message);
         messageArea.repaint();
         display.repaint(); // for applet

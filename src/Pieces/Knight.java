@@ -1,9 +1,7 @@
 package Pieces;
 import java.awt.Color;
 import java.util.ArrayList;
-
 import info.gridworld.actor.Actor;
-import info.gridworld.actor.Bug;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 
